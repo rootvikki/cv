@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>My Form</title>
+    <style>
+      label {
+        display: block;
+        font-weight: bold;
+      }
+
+      input {
+        margin-bottom: 10px;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="myForm">
+      <label for="firstName">First name:</label>
+      <input type="text" id="firstName" name="firstName" value="Morgan"><br><br>
+      <label for="regNumber">Reg Number:</label>
+      <input type="text" id="regNumber" name="regNumber" value="IN14/00006/20"><br><br>
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" value="21"><br><br>
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+
+    <script>
+      const form = document.getElementById('myForm');
+      const submitBtn = document.getElementById('submitBtn');
+
+      submitBtn.addEventListener('click', (event) => {
+        event.preventDefault(); // prevent form submission
+
+        const firstName = document.getElementById('firstName').value;
+        const regNumber = document.getElementById('regNumber').value;
+        const age = document.getElementById('age').value;
+
+        // save data to session storage
+        sessionStorage.setItem('firstName', firstName);
+        sessionStorage.setItem('regNumber', regNumber);
+        sessionStorage.setItem('age', age);
+
+        // redirect to welcome.html
+        window.location.href = 'welcome.html';
+      });
+    </script>
+  </body>
+</html>
+
+
+<!-- welcome.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+  </head>
+  <body>
+    <p>Welcome: <span id="firstName"></span></p>
+    <p>Your registration number is <span id="regNumber"></span></p>
+    <p>You are <span id="age"></span> years old.</p>
+
+    <script>
+      const firstNameSpan = document.getElementById('firstName');
+      const regNumberSpan = document.getElementById('regNumber');
+      const ageSpan = document.getElementById('age');
+
+      // get data from session storage
+      const firstName = sessionStorage.getItem('firstName');
+      const regNumber = sessionStorage.getItem('regNumber');
+      const age = sessionStorage.getItem('age');
+
+      // display data
+      firstNameSpan.innerText = firstName;
+      regNumberSpan.innerText = regNumber;
+      ageSpan.innerText = age;
+    </script>
+  </body>
+</html>
